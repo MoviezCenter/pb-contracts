@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package core.v1;
+
+option go_package = "github.com/TranTheTuan/pb-contracts/build/go/core";
+
+enum Type {
+  TYPE_MOVIE_UNSPECIFIED = 0;
+  TYPE_MOVIE = 1;
+  TYPE_TV_SHOW = 2;
+}
