@@ -23,15 +23,21 @@ jobs:
           path: pb-contracts-go
       - name: Copy and push generated code
         run: |
+          BRANCH_NAME="auto-generated-branch"
           cp -r build/* pb-contracts-go/
           cd pb-contracts-go
           git config user.name "autobot"
           git config user.email "tranthetuan1998hanam@gmail.com"
-          git checkout -B "${{ github.sha }}"
+          if git ls-remote --heads origin $BRANCH_NAME | grep -sw $BRANCH_NAME; then
+            git checkout $BRANCH_NAME
+            git pull origin $BRANCH_NAME --rebase
+          else
+            git checkout -b $BRANCH_NAME
+          fi
           if [ -n "$(git status --porcelain)" ]; then
             git add .
             git commit -m "[AUTO] Generated code from .proto contracts"
-            git push origin ${{ github.sha }}
+            git push origin ${{ BRANCH_NAME }}
           else
             echo "No changes to commit."
           fi
