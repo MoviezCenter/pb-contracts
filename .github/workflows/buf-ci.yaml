@@ -3,6 +3,10 @@ on:
   pull_request:
     branches:
       - "main"
+
+env:
+  BRANCH_NAME: auto-generated-branch
+
 jobs:
   buf:
     runs-on: ubuntu-22.04
@@ -27,11 +31,16 @@ jobs:
           cd pb-contracts-go
           git config user.name "autobot"
           git config user.email "tranthetuan1998hanam@gmail.com"
-          git checkout -B "${GITHUB_REF##*/}"
+          if git ls-remote --heads origin $BRANCH_NAME | grep -sw $BRANCH_NAME; then
+            git checkout $BRANCH_NAME
+            git pull origin $BRANCH_NAME --rebase
+          else
+            git checkout -b $BRANCH_NAME
+          fi
           if [ -n "$(git status --porcelain)" ]; then
             git add .
             git commit -m "[AUTO] Generated code from .proto contracts"
-            git push origin ${GITHUB_REF##*/}
+            git push origin $BRANCH_NAME
           else
             echo "No changes to commit."
           fi
