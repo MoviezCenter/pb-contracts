@@ -27,11 +27,11 @@ jobs:
           cd pb-contracts-go
           git config user.name "autobot"
           git config user.email "tranthetuan1998hanam@gmail.com"
-          git checkout -B "${GITHUB_REF##*/}"
+          git checkout -B "${{ github.sha }}"
           if [ -n "$(git status --porcelain)" ]; then
             git add .
             git commit -m "[AUTO] Generated code from .proto contracts"
-            git push origin ${GITHUB_REF##*/}
+            git push origin ${{ github.sha }}
           else
             echo "No changes to commit."
           fi
