@@ -12,7 +12,7 @@ jobs:
       - name: Setup Buf
         uses: bufbuild/buf-action@v1
         with:
-          input: proto
+          setup-only: true
       - name: Generate code
         run: buf generate
       - name: Clone the repository for generated code
