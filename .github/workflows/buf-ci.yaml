@@ -1,0 +1,37 @@
+name: Buf CLI
+on:
+  pull_request:
+    branches:
+      - "main"
+jobs:
+  buf:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Buf
+        uses: bufbuild/buf-action@v1
+        with:
+          setup_only: true
+      - name: Generate code
+        run: buf generate
+      - name: Clone the repository for generated code
+        uses: actions/checkout@v4
+        with:
+          repository: MoviezCenter/pb-contracts-go
+          token: ${{ secrets.PAT }}
+          path: pb-contracts-go
+      - name: Copy and push generated code
+        run: |
+          cp -r build/* pb-contracts-go/
+          cd pb-contracts-go
+          git config user.name "autobot"
+          git config user.email "tranthetuan1998hanam@gmail.com"
+          git checkout -B "${GITHUB_REF##*/}"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "[AUTO] Generated code from .proto contracts"
+            git push origin ${GITHUB_REF##*/}
+          else
+            echo "No changes to commit."
+          fi
