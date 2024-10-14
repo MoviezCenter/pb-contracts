@@ -3,6 +3,10 @@ on:
   pull_request:
     branches:
       - "main"
+
+env:
+  BRANCH_NAME: auto-generated-branch
+
 jobs:
   buf:
     runs-on: ubuntu-22.04
@@ -25,7 +29,6 @@ jobs:
         run: |
           cp -r build/* pb-contracts-go/
           cd pb-contracts-go
-          BRANCH_NAME="auto-generated-branch"
           git config user.name "autobot"
           git config user.email "tranthetuan1998hanam@gmail.com"
           if git ls-remote --heads origin $BRANCH_NAME | grep -sw $BRANCH_NAME; then
