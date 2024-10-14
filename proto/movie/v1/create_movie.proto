@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package movie.v1;
 
-option go_package = "github.com/TranTheTuan/pb-contracts/build/go/movie";
+option go_package = "github.com/TranTheTuan/pb-contracts-go/movie";
 
 import "google/api/annotations.proto";
 import "core/v1/movie.proto";

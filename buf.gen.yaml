@@ -3,13 +3,13 @@ managed:
   enabled: true
 plugins:
   - remote: buf.build/protocolbuffers/go:v1.35.1
-    out: build/go
-    opt: module=github.com/TranTheTuan/pb-contracts/build/go
+    out: build
+    opt: module=github.com/TranTheTuan/pb-contracts-go
   - remote: buf.build/grpc/go:v1.5.1
-    out: build/go
-    opt: module=github.com/TranTheTuan/pb-contracts/build/go
+    out: build
+    opt: module=github.com/TranTheTuan/pb-contracts-go
   - remote: buf.build/grpc-ecosystem/gateway:v2.22.0
-    out: build/go
-    opt: module=github.com/TranTheTuan/pb-contracts/build/go
+    out: build
+    opt: module=github.com/TranTheTuan/pb-contracts-go
 inputs:
   - directory: proto
