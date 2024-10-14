@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package core.v1;
 
-option go_package = "github.com/TranTheTuan/pb-contracts-go/core";
+option go_package = "github.com/MoviezCenter/pb-contracts-go/core";
 
 enum Type {
   TYPE_MOVIE_UNSPECIFIED = 0;
