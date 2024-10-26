@@ -27,8 +27,6 @@ jobs:
           path: pb-contracts-go
       - name: Copy and push generated code
         run: |
-          cp -r build/* pb-contracts-go/
-          cd pb-contracts-go
           git config user.name "autobot"
           git config user.email "tranthetuan1998hanam@gmail.com"
           git fetch origin
@@ -38,6 +36,8 @@ jobs:
           else
             git checkout -b $BRANCH_NAME
           fi
+          cp -r build/* pb-contracts-go/
+          cd pb-contracts-go
           if [ -n "$(git status --porcelain)" ]; then
             git add .
             git commit -m "[AUTO] Generated code from .proto contracts"
