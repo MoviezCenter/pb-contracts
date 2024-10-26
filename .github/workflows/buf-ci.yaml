@@ -31,12 +31,15 @@ jobs:
           cd pb-contracts-go
           git config user.name "autobot"
           git config user.email "tranthetuan1998hanam@gmail.com"
+          git stash
+          git fetch origin
           if git ls-remote --heads origin $BRANCH_NAME | grep -sw $BRANCH_NAME; then
             git checkout $BRANCH_NAME
             git pull origin $BRANCH_NAME --rebase
           else
             git checkout -b $BRANCH_NAME
           fi
+          git stash pop
           if [ -n "$(git status --porcelain)" ]; then
             git add .
             git commit -m "[AUTO] Generated code from .proto contracts"
