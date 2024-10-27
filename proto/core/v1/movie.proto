@@ -12,6 +12,6 @@ message Movie {
   string overview = 3;
   string release_date = 4;
   string poster_path = 5;
-  core.v1.Genre genre = 6;
+  repeated core.v1.Genre genres = 6;
   string original_language = 7;
 }
