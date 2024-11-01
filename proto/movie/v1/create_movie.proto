@@ -13,6 +13,12 @@ service MovieService {
       get: "/api/v1/movies"
     };
   };
+
+  rpc GetMovieDetail(GetMovieDetailRequest) returns (GetMovieDetailResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/movies/{id}"
+    };
+  };
 }
 
 message GetMovieListRequest {
@@ -22,4 +28,12 @@ message GetMovieListRequest {
 
 message GetMovieListResponse {
   repeated core.v1.Movie data = 1;
+}
+
+message GetMovieDetailRequest {
+  uint32 id = 1;
+}
+
+message GetMovieDetailResponse {
+  core.v1.Movie data = 1;
 }
