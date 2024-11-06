@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package movie.v1;
+
+option go_package = "github.com/MoviezCenter/pb-contracts-go/review";
+
+import "google/api/annotations.proto";
+import "core/v1/response.proto";
+import "core/v1/review.proto";
+
+service ReviewService {
+  rpc GetReviewList(GetReviewListRequest) returns (GetReviewListResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/movies/{movie_id}/reviews"
+    };
+  };
+
+  rpc AddReview(AddReviewRequest) returns (core.v1.GeneralResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/movies/{movie_id}/reviews"
+      body: "*"
+    };
+  };
+
+  rpc UpdateReview(UpdateReviewRequest) returns (core.v1.GeneralResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/movies/{movie_id}/reviews/{review_id}"
+      body: "*"
+    };
+  };
+
+  rpc DeleteReview(DeleteReviewRequest) returns (core.v1.GeneralResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/movies/{movie_id}/reviews/{review_id}"
+    };
+  };
+}
+
+message GetReviewListRequest {
+  uint32 movie_id = 1;
+  uint32 limit = 2;
+  uint32 offset = 3;
+}
+
+message GetReviewListResponse {
+  uint32 total = 1;
+  repeated core.v1.Review data = 2;
+}
+
+message AddReviewRequest {
+  uint32 movie_id = 1;
+  uint32 rating = 2;
+  string review = 3;
+}
+
+message UpdateReviewRequest {
+  uint32 movie_id = 1;
+  uint32 review_id = 2;
+  uint32 rating = 3;
+  string review = 4;
+}
+
+message DeleteReviewRequest {
+  uint32 movie_id = 1;
+  uint32 review_id = 2;
+}
+
