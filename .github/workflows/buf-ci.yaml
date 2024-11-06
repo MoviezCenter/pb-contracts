@@ -39,6 +39,7 @@ jobs:
           cd pb-contracts-go
           git config user.name "autobot"
           git config user.email "tranthetuan1998hanam@gmail.com"
+          git add .
           git stash
           git fetch origin
           if git ls-remote --heads origin $BRANCH_NAME | grep -sw $BRANCH_NAME; then
