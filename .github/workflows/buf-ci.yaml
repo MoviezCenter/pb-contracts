@@ -19,15 +19,23 @@ jobs:
           setup_only: true
       - name: Generate code
         run: buf generate
+      - name: List generated files
+        run: ls -R build
       - name: Clone the repository for generated code
         uses: actions/checkout@v4
         with:
           repository: MoviezCenter/pb-contracts-go
           token: ${{ secrets.PAT }}
           path: pb-contracts-go
-      - name: Copy and push generated code
+      - name: Copy generated code
+        run: cp -r build/* pb-contracts-go/
+      - name: Check for git change
         run: |
-          cp -r build/* pb-contracts-go/
+          cd pb-contracts-go
+          git status
+          git diff
+      - name: Push generated code
+        run: |
           cd pb-contracts-go
           git config user.name "autobot"
           git config user.email "tranthetuan1998hanam@gmail.com"
