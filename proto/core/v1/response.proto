@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package core.v1;
+
+import "google/protobuf/any.proto";
+
+message GeneralResponse {
+  string code = 1;
+  string message = 2;
+  optional Detail detail = 3;
+}
+
+message Detail {
+  google.protobuf.Any data = 1;
+}
