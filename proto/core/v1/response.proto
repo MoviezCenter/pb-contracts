@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package core.v1;
 
+option go_package = "github.com/MoviezCenter/pb-contracts-go/core";
+
 import "google/protobuf/any.proto";
 
 message GeneralResponse {
