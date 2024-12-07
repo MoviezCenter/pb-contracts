@@ -19,6 +19,12 @@ service MovieService {
       get: "/api/v1/movies/{id}"
     };
   };
+
+  rpc FindByDescription(FindByDescriptionRequest) returns (FindByDescriptionResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/movies/describe"
+    };
+  };
 }
 
 message GetMovieListRequest {
@@ -36,4 +42,12 @@ message GetMovieDetailRequest {
 
 message GetMovieDetailResponse {
   core.v1.Movie data = 1;
+}
+
+message FindByDescriptionRequest {
+  string description = 1;
+}
+
+message FindByDescriptionResponse {
+  repeated core.v1.Movie data = 1;
 }
